@@ -41,7 +41,7 @@ public class Program
             }
             catch (Exception ex)
             {
-                // Log or handle the error
+               
             }
         }
 

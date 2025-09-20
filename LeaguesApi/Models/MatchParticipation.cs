@@ -8,6 +8,8 @@ public class MatchParticipation
     public MatchRole Role { get; set; }
     public int Score { get; set; }
     public int Points { get; set; }
+    public int TeamId { get; set; }
+    public virtual Team Team { get; set; }
     public int MatchId { get; set; }
     public virtual Match Match { get; set; }
     public bool Winner { get; set; }

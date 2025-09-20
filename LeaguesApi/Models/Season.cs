@@ -7,5 +7,7 @@ public class Season
     [Key]
     public int Id { get; set; }
 
-    public int Year { get; set; }
+    public string Year { get; set; }
+    public int LeagueId { get; set; }
+    public virtual League League { get; set; }
 }

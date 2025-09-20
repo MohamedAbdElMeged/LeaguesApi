@@ -7,4 +7,5 @@ public class Match
     public DateTime MatchDate { get; set; }
     public int SeasonId { get; set; }
     public virtual Season Season { get; set; }
+    public ICollection<MatchParticipation> MatchParticipations { get; set; } = new List<MatchParticipation>();
 }
