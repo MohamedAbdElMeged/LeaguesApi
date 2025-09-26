@@ -1,8 +1,10 @@
 using LeaguesApi.Data;
+using LeaguesApi.Dtos;
 using LeaguesApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaguesApi.Services;
+
 
 public class SubscriberService : ISubscriberService
 {
@@ -18,8 +20,20 @@ public class SubscriberService : ISubscriberService
                                                                    s.ClientSecret == clientSecret);
     }
 
-    public Task UpdateQuota(Subscriber subscriber)
+    public async Task<Subscriber> GetSubscriberByName(string name)
     {
-        throw new NotImplementedException();
+        return await _context.Subscribers.FirstOrDefaultAsync(s => s.Name == name);
+    }
+
+    public async Task<Subscriber> CreateNewSubscriberAsync(CreateNewSubscriberRequest createNewSubscriberRequest)
+    {
+
+        var subscriberExists = await GetSubscriberByName(createNewSubscriberRequest.Name);
+        if (subscriberExists == null)
+        {
+            return null;
+        }
+
+        return new Subscriber();
     }
 }
