@@ -1,15 +1,18 @@
 using LeaguesApi.Models;
 using LeaguesApi.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace LeaguesApi.Data.Seeders;
 
 public class ApplicationDbSeeder
 {
     private readonly ApplicationDbContext _context;
+    private readonly IPasswordHasher<Admin> _passwordHasher;
 
-    public ApplicationDbSeeder(ApplicationDbContext context)
+    public ApplicationDbSeeder(ApplicationDbContext context, IPasswordHasher<Admin> passwordHasher)
     {
         _context = context;
+        _passwordHasher = passwordHasher;
     }
     
     public void Seed()
@@ -42,9 +45,10 @@ public class ApplicationDbSeeder
     {
         var admin = new Admin()
         {
-            Email = "admin@admin.com",
-            Password = "123456"
+            Email = "admin@admin.com"
+            
         };
+        admin.Password = _passwordHasher.HashPassword(admin, "123456");
         _context.Admins.Add(admin);
         
     }
