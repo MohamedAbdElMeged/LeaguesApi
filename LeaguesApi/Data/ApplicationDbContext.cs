@@ -27,6 +27,14 @@ public class ApplicationDbContext : DbContext
             .HasColumnName("Name")
             .HasMaxLength(100)
             .IsRequired();
+        modelBuilder.Entity<Subscriber>()
+            .Property(s => s.Name)
+            .HasColumnName("Name")
+            .HasMaxLength(100)
+            .IsRequired();
+        modelBuilder.Entity<Subscriber>()
+            .HasIndex(e => new { e.Name })
+            .IsUnique();
         modelBuilder.Entity<Team>()
             .Property(s => s.Name)
             .HasColumnName("Name")
