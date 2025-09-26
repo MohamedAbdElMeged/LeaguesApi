@@ -71,12 +71,7 @@ public class Program
                 policy.RequireAuthenticatedUser();
             });
 
-            // if you want an endpoint to accept BOTH
-            options.AddPolicy("JwtOrClient", policy =>
-            {
-                policy.AddAuthenticationSchemes("JwtBearer", "ClientCredentials");
-                policy.RequireAuthenticatedUser();
-            });
+
         });
 
         builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();

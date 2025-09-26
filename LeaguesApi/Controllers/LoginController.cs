@@ -11,7 +11,7 @@ using LoginRequest = Microsoft.AspNetCore.Identity.Data.LoginRequest;
 namespace LeaguesApi.Controllers;
 
 [ApiController]
-[Route("/api/admin")]
+[Route("/api/admin/sessions")]
 public class LoginController : ControllerBase
 {
     private readonly IAdminService _adminService;
@@ -37,11 +37,6 @@ public class LoginController : ControllerBase
         return Unauthorized(new {message = "Wrong Email or Password"});
     }
     
-    [HttpPost("CreateNewAdmin")]
-    [Authorize(Policy = "JwtPolicy")]
-    [SwaggerJwtAuth]
-    public IActionResult CreateNewAdmin([FromBody] CreateNewAdminRequest createNewAdminRequest)
-    {
-        return Ok(new {email =  createNewAdminRequest.Email  });
-    }
+
+
 }

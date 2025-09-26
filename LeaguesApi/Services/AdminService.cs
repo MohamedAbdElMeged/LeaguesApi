@@ -1,6 +1,8 @@
 using LeaguesApi.Data;
+using LeaguesApi.Dtos;
 using LeaguesApi.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeaguesApi.Services;
 
@@ -18,10 +20,11 @@ public class AdminService : IAdminService
         _passwordHasher = passwordHasher;
         _jwtTokenService = jwtTokenService;
     }
-    public Admin GetAdminByEmail(string email)
+    public async Task<Admin> GetAdminByEmailAsync(string email)
     {
-        throw new NotImplementedException();
+        return await _context.Admins.FirstOrDefaultAsync(a => a.Email == email);
     }
+
 
     public async Task<(Admin, string)> Login(string email, string password)
     {
@@ -38,5 +41,23 @@ public class AdminService : IAdminService
     public Admin GetAdminById(int id)
     {
         return _context.Admins.FirstOrDefault(a => a.Id == id);
+    }
+
+    public async Task<(Admin?, string?)> CreateNewAdminAsync(CreateNewAdminRequest newAdminRequest)
+    {
+        var existedAdmin = await GetAdminByEmailAsync(newAdminRequest.Email);
+        if (existedAdmin != null)
+        {
+            return (null, "Email is already exists");
+        }
+
+        var newAdmin = new Admin()
+        {
+            Email = newAdminRequest.Email
+        };
+        newAdmin.Password =_passwordHasher.HashPassword(newAdmin, "123456");
+        _context.Admins.Add(newAdmin);
+        _context.SaveChanges();
+        return (newAdmin, "Admin Added Successfully");
     }
 }
