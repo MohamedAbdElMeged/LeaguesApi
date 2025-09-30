@@ -63,4 +63,10 @@ public class SubscriptionService : ISubscriptionService
         _context.Subscriptions.Update(subscription);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<List<SubscriptionResponse>> GetSubscriptionsBySubscriberId(int subscriberId)
+    {
+        var subscriptions =  await _context.Subscriptions.Where(s => s.SubscriberId == subscriberId).ToListAsync();
+        return _mapper.Map<List<SubscriptionResponse>>(subscriptions);
+    }
 }

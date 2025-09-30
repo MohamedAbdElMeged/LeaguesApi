@@ -72,5 +72,13 @@ public class SubscriptionsController : ControllerBase
         return Ok(_mapper.Map<SubscriptionResponse>(subscription));
 
     }
-    
+
+    [HttpGet("/GetSubscriptions")]
+    [Authorize(Policy = "ClientPolicy")]
+    [SwaggerClientAuth]
+    public async Task<IActionResult> GetSubscriptions()
+    {
+        var subscriberId = Int32.Parse(User.Identity?.Name);
+        return Ok(await _subscriptionService.GetSubscriptionsBySubscriberId(subscriberId));
+    }
 }

@@ -10,4 +10,6 @@ public class Season
     public string Year { get; set; }
     public int LeagueId { get; set; }
     public virtual League League { get; set; }
+    public ICollection<Team> Teams { get; set; } = new List<Team>();
 }
+

@@ -8,4 +8,5 @@ public class SubscriptionResponse
     public int SubscriberId { get; set; }
     public DateTime SubscriptionDate { get; set; }
     public int RemainingQuota { get; set; }
+    public bool IsActive { get; set; }
 }

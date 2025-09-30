@@ -52,10 +52,6 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Subscriber>()
             .Property(e=>  e.ClientSecret)
             .IsRequired();
-        modelBuilder.Entity<Team>()
-            .HasOne(t => t.League)
-            .WithMany(l => l.Teams)
-            .HasForeignKey(t => t.LeagueId)
-            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

@@ -12,4 +12,5 @@ public interface ISubscriptionService
     public Task<SubscriptionPlan> GetSubscriptionPlanById(int id);
     public Task<Subscription> GetSubscriptionById(int id, int subscriberId);
     public Task ToggleSubscription(Subscription subscription);
+    public Task<List<SubscriptionResponse>> GetSubscriptionsBySubscriberId(int subscriberId);
 }

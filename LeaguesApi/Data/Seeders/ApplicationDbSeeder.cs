@@ -55,48 +55,61 @@ public class ApplicationDbSeeder
 
     private void SeedLeaguesAndTeams()
     {
+        
         var league = new League()
         {
             Name = "English Premier League"
         };
+        var season = new Season()
+        {
+            League = league,
+            Year = "2025"
+        };
+        _context.Leagues.Add(league);
+        _context.Seasons.Add(season);
         var teams = new List<Team>()
         {
             new Team()
             {
                 Name = "Manchester City",
-                League = league
+                Season = season
             },
             new Team()
             {
                 Name = "Liverpool",
-                League = league
+                Season = season
             },
             new Team()
             {
                 Name = "Arsenal",
-                League = league
+                Season = season
             },
             new Team()
             {
                 Name = "Manchester United",
-                League = league
+                Season = season
             },
             new Team()
             {
                 Name = "Spurs",
-                League = league
+                Season = season
             }, 
             new Team()
             {
                 Name = "Newcastle",
-                League = league
+                Season = season
             },
             new Team()
             {
                 Name = "Chelsea",
-                League = league
+                Season = season
+            },
+            new Team()
+            {
+                Name = "Al Ahly Sc"
             },
         };
+        
         _context.Leagues.Add(league);
         _context.Teams.AddRange(teams);
        
@@ -129,12 +142,7 @@ public class ApplicationDbSeeder
     private void SeedMatches()
     {
         var league = _context.Leagues.FirstOrDefault();
-        var season = new Season()
-        {
-            League = league,
-            Year = "2025"
-        };
-        _context.Seasons.Add(season);
+        var season = _context.Seasons.FirstOrDefault();
         var matches = new List<Match>()
         {
             new Match()
