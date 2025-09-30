@@ -45,19 +45,13 @@ public class AdminService : IAdminService
 
     public async Task<(Admin?, string?)> CreateNewAdminAsync(CreateNewAdminRequest newAdminRequest)
     {
-        var existedAdmin = await GetAdminByEmailAsync(newAdminRequest.Email);
-        if (existedAdmin != null)
-        {
-            return (null, "Email is already exists");
-        }
-
         var newAdmin = new Admin()
         {
             Email = newAdminRequest.Email
         };
         newAdmin.Password =_passwordHasher.HashPassword(newAdmin, "123456");
-        _context.Admins.Add(newAdmin);
-        _context.SaveChanges();
+        await _context.Admins.AddAsync(newAdmin);
+        await _context.SaveChangesAsync();
         return (newAdmin, "Admin Added Successfully");
     }
 }

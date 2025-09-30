@@ -12,5 +12,11 @@ public class Subscription
     public virtual SubscriptionPlan SubscriptionPlan { get; set; }
     public int SubscriberId { get; set; }
     public virtual Subscriber Subscriber { get; set; }
+    public bool IsActive { get; set; }
+    public Subscription()
+    {
+        SubscriptionDate = DateTime.Now;
+        IsActive = true;
+    }
     
 }

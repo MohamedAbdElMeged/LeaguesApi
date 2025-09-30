@@ -1,5 +1,6 @@
 using LeaguesApi.Data;
 using LeaguesApi.Dtos;
+using LeaguesApi.Helpers;
 using LeaguesApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,13 +28,15 @@ public class SubscriberService : ISubscriberService
 
     public async Task<Subscriber> CreateNewSubscriberAsync(CreateNewSubscriberRequest createNewSubscriberRequest)
     {
-
-        var subscriberExists = await GetSubscriberByName(createNewSubscriberRequest.Name);
-        if (subscriberExists == null)
+        var newSubscriber = new Subscriber()
         {
-            return null;
-        }
-
-        return new Subscriber();
+            Name= createNewSubscriberRequest.Name,
+            ClientId = GeneratorHelper.GenerateRandomString(50,false),
+            ClientSecret = GeneratorHelper.GenerateRandomString(90,true)
+            
+        };
+        await _context.Subscribers.AddAsync(newSubscriber);
+        await _context.SaveChangesAsync();
+        return newSubscriber;
     }
 }

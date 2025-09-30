@@ -1,6 +1,8 @@
+using FluentValidation;
 using LeaguesApi.Attributes;
 using LeaguesApi.Dtos;
 using LeaguesApi.Services;
+using LeaguesApi.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +14,12 @@ namespace LeaguesApi.Controllers;
 public class AdminsController : ControllerBase
 {
     private readonly IAdminService _adminService;
+    private readonly IValidator<CreateNewAdminRequest> _validator;
 
-    public AdminsController(IAdminService adminService)
+    public AdminsController(IAdminService adminService, IValidator<CreateNewAdminRequest> validator)
     {
         _adminService = adminService;
+        _validator = validator;
     }
     
     [HttpPost("CreateNewAdmin")]
@@ -24,12 +28,10 @@ public class AdminsController : ControllerBase
     public async Task<IActionResult> CreateNewAdmin([FromBody] CreateNewAdminRequest createNewAdminRequest)
     {
 
-        var result = await _adminService.CreateNewAdminAsync(createNewAdminRequest);
-        if (result.Item1 is not null)
-        {
-            return Created(result.Item2, result.Item1 );
-        }
+        var validationResult = await _validator.ValidateAsync(createNewAdminRequest);
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
 
-        return BadRequest(result.Item2);
+        return Ok(await _adminService.CreateNewAdminAsync(createNewAdminRequest));
     }
 }

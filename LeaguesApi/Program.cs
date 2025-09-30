@@ -1,10 +1,14 @@
 using System.Text;
+using FluentValidation;
 using LeaguesApi.Data;
 using LeaguesApi.Data.Seeders;
+using LeaguesApi.Dtos;
 using LeaguesApi.Filters;
+using LeaguesApi.Mappers;
 using LeaguesApi.Middlewares;
 using LeaguesApi.Models;
 using LeaguesApi.Services;
+using LeaguesApi.Validators;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -19,10 +23,10 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddAutoMapper(typeof(SubscriptionMapper).Assembly);
         builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Leagues API", Version = "v1" });
@@ -75,8 +79,17 @@ public class Program
         });
 
         builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+        builder.Services.AddScoped<ISubscriberService, SubscriberService>();
+        builder.Services.AddScoped<IAdminService, AdminService>();
+        builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+        builder.Services.AddScoped<IValidator<CreateNewSubscriptionRequest>,
+            CreateNewSubscriptionValidator>();
+        builder.Services.AddScoped<IValidator<CreateNewSubscriberRequest>,
+            CreateNewSubscriberValidator>();
+        builder.Services.AddScoped<IValidator<CreateNewAdminRequest>,
+            CreateNewAdminValidator>();
         builder.Services.AddScoped<IPasswordHasher<Admin>, PasswordHasher<Admin>>();
-
+        
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
