@@ -1,6 +1,7 @@
 using FluentValidation;
 using LeaguesApi.Data;
 using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Requests;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaguesApi.Validators;

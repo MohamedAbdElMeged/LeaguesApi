@@ -1,6 +1,7 @@
 using FluentValidation;
 using LeaguesApi.Attributes;
 using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Requests;
 using LeaguesApi.Services;
 using LeaguesApi.Validators;
 using Microsoft.AspNetCore.Authorization;

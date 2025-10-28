@@ -3,6 +3,7 @@ using AutoMapper;
 using FluentValidation;
 using LeaguesApi.Attributes;
 using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Requests;
 using LeaguesApi.Models;
 using LeaguesApi.Services;
 using LeaguesApi.Validators;
@@ -17,15 +18,15 @@ public class SubscriptionsController : ControllerBase
     private readonly ISubscriptionService _subscriptionService;
     
     private readonly IValidator<CreateNewSubscriptionRequest> _validator;
-    private readonly IMapper _mapper;
+    
 
     public SubscriptionsController(ISubscriptionService subscriptionService,
-        IValidator<CreateNewSubscriptionRequest> validator,
-        IMapper mapper)
+        IValidator<CreateNewSubscriptionRequest> validator
+        )
     {
         _subscriptionService = subscriptionService;
         _validator = validator;
-        _mapper = mapper;
+        
     }
 
     [HttpGet("GetSubscriptionPlans")]
@@ -69,7 +70,7 @@ public class SubscriptionsController : ControllerBase
         }
 
         await _subscriptionService.ToggleSubscription(subscription);
-        return Ok(_mapper.Map<SubscriptionResponse>(subscription));
+        return Ok(subscription);
 
     }
 

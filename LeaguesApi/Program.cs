@@ -3,8 +3,8 @@ using FluentValidation;
 using LeaguesApi.Data;
 using LeaguesApi.Data.Seeders;
 using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Requests;
 using LeaguesApi.Filters;
-using LeaguesApi.Mappers;
 using LeaguesApi.Middlewares;
 using LeaguesApi.Models;
 using LeaguesApi.Services;
@@ -26,7 +26,7 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddAutoMapper(typeof(SubscriptionMapper).Assembly);
+        
         builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Leagues API", Version = "v1" });

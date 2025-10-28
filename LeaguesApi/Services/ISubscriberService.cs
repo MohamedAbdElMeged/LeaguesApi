@@ -1,6 +1,6 @@
 using LeaguesApi.Dtos;
 using LeaguesApi.Models;
-
+using LeaguesApi.Dtos.Requests;
 namespace LeaguesApi.Services;
 
 public interface ISubscriberService

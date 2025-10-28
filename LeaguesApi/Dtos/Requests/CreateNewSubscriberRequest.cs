@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace LeaguesApi.Dtos;
+namespace LeaguesApi.Dtos.Requests;
 
 public class CreateNewSubscriberRequest
 {

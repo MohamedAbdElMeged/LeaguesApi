@@ -1,4 +1,4 @@
-namespace LeaguesApi.Dtos;
+namespace LeaguesApi.Dtos.Requests;
 
 public class LoginRequest
 {

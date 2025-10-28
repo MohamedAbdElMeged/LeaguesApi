@@ -1,4 +1,5 @@
 using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Requests;
 using LeaguesApi.Models;
 
 namespace LeaguesApi.Services;

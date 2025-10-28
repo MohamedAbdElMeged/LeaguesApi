@@ -3,18 +3,16 @@ using LeaguesApi.Data;
 using LeaguesApi.Dtos;
 using LeaguesApi.Models;
 using Microsoft.EntityFrameworkCore;
-
+using LeaguesApi.Dtos.Requests;
 namespace LeaguesApi.Services;
 
 public class SubscriptionService : ISubscriptionService
 {
     private readonly ApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
-    public SubscriptionService(ApplicationDbContext context, IMapper mapper)
+    public SubscriptionService(ApplicationDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
     public async Task<List<SubscriptionPlan>> GetSubscriptionPlans()
     {
@@ -31,7 +29,7 @@ public class SubscriptionService : ISubscriptionService
         if (existingSubscription != null)
         {
             await ToggleSubscription(existingSubscription);
-            return _mapper.Map<SubscriptionResponse>(existingSubscription);
+            return new SubscriptionResponse(); // need change
         }
         var subscription = new Subscription()
         {
@@ -43,7 +41,7 @@ public class SubscriptionService : ISubscriptionService
         
         await _context.Subscriptions.AddAsync(subscription);
         await _context.SaveChangesAsync();
-        return _mapper.Map<SubscriptionResponse>(subscription);
+        return new SubscriptionResponse(); // need change
     }
 
     public async Task<SubscriptionPlan> GetSubscriptionPlanById(int id)
@@ -67,6 +65,6 @@ public class SubscriptionService : ISubscriptionService
     public async Task<List<SubscriptionResponse>> GetSubscriptionsBySubscriberId(int subscriberId)
     {
         var subscriptions =  await _context.Subscriptions.Where(s => s.SubscriberId == subscriberId).ToListAsync();
-        return _mapper.Map<List<SubscriptionResponse>>(subscriptions);
+        return new List<SubscriptionResponse>(); // need change
     }
 }

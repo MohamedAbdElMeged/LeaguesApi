@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{E8AFEC86-BC0C-43BA-B1CC-B83540081697}|https">
+  <MonoDevelop.Ide.ItemProperties.LeaguesApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LeaguesApi/Controllers/AdminsController.cs">
+    <Files>
+      <File FileName="LeaguesApi/Attributes/SwaggerClientAuthAttribute.cs" Line="1" Column="1" />
+      <File FileName="LeaguesApi/Attributes/SwaggerJwtAuthAttribute.cs" Line="1" Column="1" />
+      <File FileName="LeaguesApi/Controllers/AdminsController.cs" Line="24" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LeaguesApi" expanded="True">
+            <Node name="LeaguesApi" expanded="True">
+              <Node name="Attributes" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="AdminsController.cs" selected="True" />
+              </Node>
+              <Node name="Middlewares" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>
