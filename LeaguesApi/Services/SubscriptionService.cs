@@ -4,6 +4,8 @@ using LeaguesApi.Dtos;
 using LeaguesApi.Models;
 using Microsoft.EntityFrameworkCore;
 using LeaguesApi.Dtos.Requests;
+using LeaguesApi.Mappers;
+
 namespace LeaguesApi.Services;
 
 public class SubscriptionService : ISubscriptionService
@@ -22,26 +24,21 @@ public class SubscriptionService : ISubscriptionService
     public async Task<SubscriptionResponse> CreateSubscription(CreateNewSubscriptionRequest createNewSubscriptionRequest)
     {
         var subscriptionPlan = await GetSubscriptionPlanById(createNewSubscriptionRequest.SubscriptionPlanId);
-        var existingSubscription = await _context.Subscriptions.FirstOrDefaultAsync(s =>
+        var existingSubscription = await _context.Subscriptions.Include(s=> s.SubscriptionPlan).FirstOrDefaultAsync(s =>
             s.IsActive == false && s.SubscriptionPlanId == subscriptionPlan.Id &&
                 s.SeasonId == createNewSubscriptionRequest.SeasonId &&
                 s.SubscriberId == createNewSubscriptionRequest.SubscriberId);
         if (existingSubscription != null)
         {
             await ToggleSubscription(existingSubscription);
-            return new SubscriptionResponse(); // need change
+            return existingSubscription.ToSubscriptionResponse();
         }
-        var subscription = new Subscription()
-        {
-            SubscriberId = createNewSubscriptionRequest.SubscriberId,
-            SubscriptionPlanId = createNewSubscriptionRequest.SubscriptionPlanId,
-            SeasonId = createNewSubscriptionRequest.SeasonId,
-            RemainingQuota = subscriptionPlan.Quota
-        };
+
+        var subscription = createNewSubscriptionRequest.ToSubscriptionFromCreateSubscriptionRequest();
         
         await _context.Subscriptions.AddAsync(subscription);
         await _context.SaveChangesAsync();
-        return new SubscriptionResponse(); // need change
+        return subscription.ToSubscriptionResponse(); 
     }
 
     public async Task<SubscriptionPlan> GetSubscriptionPlanById(int id)
@@ -64,7 +61,7 @@ public class SubscriptionService : ISubscriptionService
 
     public async Task<List<SubscriptionResponse>> GetSubscriptionsBySubscriberId(int subscriberId)
     {
-        var subscriptions =  await _context.Subscriptions.Where(s => s.SubscriberId == subscriberId).ToListAsync();
-        return new List<SubscriptionResponse>(); // need change
+        var subscriptions =  await _context.Subscriptions.Include(s=> s.SubscriptionPlan).Where(s => s.SubscriberId == subscriberId).ToListAsync();
+        return subscriptions.Select(s => s.ToSubscriptionResponse()).ToList(); 
     }
 }
