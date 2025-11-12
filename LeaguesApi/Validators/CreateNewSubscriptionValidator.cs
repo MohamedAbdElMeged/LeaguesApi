@@ -1,7 +1,7 @@
 using System.Data;
 using FluentValidation;
 using LeaguesApi.Data;
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Dtos.Requests;
 using Microsoft.EntityFrameworkCore;
 

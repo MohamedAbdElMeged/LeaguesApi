@@ -1,5 +1,5 @@
 using LeaguesApi.Data;
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Helpers;
 using LeaguesApi.Models;
 using Microsoft.EntityFrameworkCore;

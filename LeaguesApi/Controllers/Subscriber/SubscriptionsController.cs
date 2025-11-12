@@ -2,7 +2,7 @@ using System.Security.Claims;
 using AutoMapper;
 using FluentValidation;
 using LeaguesApi.Attributes;
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Dtos.Requests;
 using LeaguesApi.Models;
 using LeaguesApi.Services;
@@ -10,7 +10,7 @@ using LeaguesApi.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LeaguesApi.Controllers;
+namespace LeaguesApi.Controllers.Subscriber;
 [ApiController]
 [Route("/api/subscribers/subscriptions")]
 public class SubscriptionsController : ControllerBase

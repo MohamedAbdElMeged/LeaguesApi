@@ -2,7 +2,7 @@ using System.Text;
 using FluentValidation;
 using LeaguesApi.Data;
 using LeaguesApi.Data.Seeders;
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Dtos.Requests;
 using LeaguesApi.Filters;
 using LeaguesApi.Middlewares;
@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 
 namespace LeaguesApi;
 
@@ -61,6 +62,7 @@ public class Program
                 };
             })
             .AddScheme<AuthenticationSchemeOptions, ClientCredentialsAuthHandler>("ClientCredentials", null);
+        
         builder.Services.AddAuthorization(options =>
         {
             options.AddPolicy("JwtPolicy", policy =>
@@ -82,26 +84,30 @@ public class Program
         builder.Services.AddScoped<ISubscriberService, SubscriberService>();
         builder.Services.AddScoped<IAdminService, AdminService>();
         builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+        builder.Services.AddScoped<ILeagueService, LeagueService>();
         builder.Services.AddScoped<IValidator<CreateNewSubscriptionRequest>,
             CreateNewSubscriptionValidator>();
         builder.Services.AddScoped<IValidator<CreateNewSubscriberRequest>,
             CreateNewSubscriberValidator>();
         builder.Services.AddScoped<IValidator<CreateNewAdminRequest>,
             CreateNewAdminValidator>();
+        builder.Services.AddScoped<IValidator<CreateLeagueRequest>,
+            CreateNewLeagueValidator>();
         builder.Services.AddScoped<IPasswordHasher<Admin>, PasswordHasher<Admin>>();
         
         var app = builder.Build();
-
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+       
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
+ ;
         using (var scope = app.Services.CreateScope())
         {
             var services = scope.ServiceProvider;

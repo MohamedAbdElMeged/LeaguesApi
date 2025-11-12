@@ -15,7 +15,7 @@ public class JwtHeaderOperationFilter :  IOperationFilter
             Name = "Authorization",
             In = ParameterLocation.Header,
             Description = "JWT Token (format: Bearer {token})",
-            Required = false,
+            Required = true,
             Schema = new OpenApiSchema
             {
                 Type = "string"

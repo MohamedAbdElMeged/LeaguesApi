@@ -1,14 +1,14 @@
 
 
 using LeaguesApi.Attributes;
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using LoginRequest = Microsoft.AspNetCore.Identity.Data.LoginRequest;
 
-namespace LeaguesApi.Controllers;
+namespace LeaguesApi.Controllers.Admin;
 
 [ApiController]
 [Route("/api/admin/sessions")]

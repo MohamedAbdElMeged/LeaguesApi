@@ -1,6 +1,6 @@
 using AutoMapper;
 using LeaguesApi.Data;
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Models;
 using Microsoft.EntityFrameworkCore;
 using LeaguesApi.Dtos.Requests;
