@@ -1,10 +1,10 @@
 using FluentValidation;
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Dtos.Requests;
 using LeaguesApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LeaguesApi.Controllers;
+namespace LeaguesApi.Controllers.Subscriber;
 [ApiController]
 [Route("/api/subscribers")]
 public class SubscribersController : ControllerBase

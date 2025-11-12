@@ -1,4 +1,4 @@
-using LeaguesApi.Dtos;
+using LeaguesApi.Dtos.Responses;
 using LeaguesApi.Models;
 
 namespace LeaguesApi.Mappers;

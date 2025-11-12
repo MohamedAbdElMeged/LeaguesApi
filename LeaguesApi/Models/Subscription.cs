@@ -13,10 +13,16 @@ public class Subscription
     public int SubscriberId { get; set; }
     public virtual Subscriber Subscriber { get; set; }
     public bool IsActive { get; set; }
+    
     public Subscription()
     {
         SubscriptionDate = DateTime.Now;
         IsActive = true;
     }
+
     
+    public League League()
+    {
+        return this.Season.League;
+    }
 }
