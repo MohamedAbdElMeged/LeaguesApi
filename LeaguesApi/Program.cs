@@ -85,6 +85,9 @@ public class Program
         builder.Services.AddScoped<IAdminService, AdminService>();
         builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
         builder.Services.AddScoped<ILeagueService, LeagueService>();
+        builder.Services.AddScoped<ISeasonService, SeasonService>();
+        builder.Services.AddScoped<IValidator<CreateSeasonRequest>,
+            CreateNewSeasonValidator>();
         builder.Services.AddScoped<IValidator<CreateNewSubscriptionRequest>,
             CreateNewSubscriptionValidator>();
         builder.Services.AddScoped<IValidator<CreateNewSubscriberRequest>,

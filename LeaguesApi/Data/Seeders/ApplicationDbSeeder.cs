@@ -63,7 +63,7 @@ public class ApplicationDbSeeder
         var season = new Season()
         {
             League = league,
-            Year = "2025"
+            Year = 2025
         };
         _context.Leagues.Add(league);
         _context.Seasons.Add(season);

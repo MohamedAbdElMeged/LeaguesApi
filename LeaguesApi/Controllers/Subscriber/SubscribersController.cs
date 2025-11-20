@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LeaguesApi.Controllers.Subscriber;
 [ApiController]
-[Route("/api/subscribers")]
+[Route("/api/subscribers/subscribers")]
 public class SubscribersController : ControllerBase
 {
     private readonly ISubscriberService _subscriberService;
